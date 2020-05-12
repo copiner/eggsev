@@ -2,10 +2,10 @@
 exports.mysql = {
   // database configuration
   client: {
-    host: 'mysql.com',
+    host: '127.0.0.1',
     port: '3306',
-    user: 'test_user',
-    password: 'test_password',
+    user: '',
+    password: '',
     database: 'test',
   },
   // load into app, default true
