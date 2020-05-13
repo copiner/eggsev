@@ -1,7 +1,7 @@
 // app/service/user.js
 const Service = require('egg').Service;
 
-class UserService extends Service {
+class UsersService extends Service {
 
   //INSERT 重复请求，redis放置流水号，避免重复请求
     async divein(uid) {
@@ -12,7 +12,6 @@ class UserService extends Service {
           title: 'Hello World',
           author: "wda",
           content:'alter to become different to make sth different'
-          
       });
     /*
     console.log(result);
@@ -72,3 +71,4 @@ class UserService extends Service {
     return insertSuccess;
   }
 }
+module.exports = UsersService;

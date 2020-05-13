@@ -1,4 +1,20 @@
 // config/config.default.js
+
+exports.mysql = {
+  // database configuration
+  client: {
+    host: '127.0.0.1',
+    port: '3306',
+    user: '',
+    password: '',
+    database: 'test',
+  },
+  // load into app, default true
+  app: true,
+  // load into agent, default false
+  agent: false,
+};
+
 exports.keys = "wdaonngg";
 
 exports.view = {
@@ -6,10 +22,6 @@ exports.view = {
   mapping: {
     '.tpl': 'nunjucks',
   },
-};
-
-exports.news = {
-  serverUrl: 'https://httpbin.org/get',
 };
 
 exports.middleware = [
@@ -23,3 +35,7 @@ exports.robot = {
   ],
 };
 //curl localhost:7001/news -A "Baiduspider"
+
+exports.news = {
+  serverUrl: 'https://httpbin.org/get',
+};
