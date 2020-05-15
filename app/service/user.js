@@ -4,11 +4,16 @@ const Service = require('egg').Service;
 class UserService extends Service {
 
   async findone(_id) {
-    const user = await this.ctx.model.User.findById(_id)
-    if (!user) {
-      this.ctx.throw(404, 'user not found')
+    try {
+      const user = await this.ctx.model.User.findById(_id)
+      if (!user) {
+        this.ctx.throw(404, 'user not found')
+      }
+      return user;
+    } catch (e){
+      console.log(e);
     }
-    return user;
+
   }
 
   async findall() {
