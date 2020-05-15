@@ -3,7 +3,12 @@ exports.nunjucks = {
   package: 'egg-view-nunjucks'
 };
 
-exports.mysql = {
+// exports.mysql = {
+//   enable: true,
+//   package: 'egg-mysql',
+// };
+
+exports.mongoose = {
   enable: true,
-  package: 'egg-mysql',
-};
+  package: 'egg-mongoose',
+}
