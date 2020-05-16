@@ -3,7 +3,7 @@ const Controller = require('egg').Controller;
 
 class UserController extends Controller {
 
-  async show() {
+  async add() {
       const ctx = this.ctx;
       await ctx.render('user/add.tpl', { url: '/user/create' });
   }
@@ -18,6 +18,7 @@ class UserController extends Controller {
   async findall() {
       const ctx = this.ctx;
       const users = await ctx.service.user.findall();//arr
+      console.log(users);
       await ctx.render('user/list.tpl', { users: users });
   }
 

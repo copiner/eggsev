@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>User</title>
-    <link rel="stylesheet" href="/public/css/news.css" />
+    <link rel="stylesheet" href="/public/css/user.css" />
   </head>
   <body>
     <ul>

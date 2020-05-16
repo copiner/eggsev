@@ -3,22 +3,25 @@ const Controller = require('egg').Controller;
 
 class ExamController extends Controller {
 
-  async show() {
+  async add() {
       const ctx = this.ctx;
-      await ctx.render('user/add.tpl', { url: '/user/create' });
+      await ctx.render('exam/add.tpl', { url: '/exam/create' });
   }
 
   async findone() {
       const ctx = this.ctx;
-      const userId = ctx.params.id;
-      const exam = await ctx.service.exam.findone(userId);//object
-      await ctx.render('user/one.tpl', { exam: exam });
+      const examId = ctx.params.id;
+      const exam = await ctx.service.exam.findone(examId);//object
+      await ctx.render('exam/one.tpl', { exam: exam });
   }
 
   async findall() {
+      
       const ctx = this.ctx;
-      const exam = await ctx.service.exam.findall();//arr
-      await ctx.render('user/list.tpl', { exam: exam });
+      const exams = await ctx.service.exam.findall();//arr
+      console.log(exams);
+      await ctx.render('exam/list.tpl', { exams: exams });
+      
   }
 
   async create() {

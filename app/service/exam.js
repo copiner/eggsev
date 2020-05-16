@@ -1,4 +1,4 @@
-// app/service/user.js
+// app/service/exam.js
 const Service = require('egg').Service;
 
 class ExamService extends Service {
@@ -17,11 +17,12 @@ class ExamService extends Service {
   }
 
   async findall() {
-    const exam = await this.ctx.model.Exam.find()
-    if (!exam) {
-      this.ctx.throw(404, 'user not found')
-    }
-    return exam;
+      try{
+          const exams = await this.ctx.model.Exam.find()
+          return exams;
+      } catch (e){
+//          console.log(e);
+      }
   }
 
   async update(_id, payload) {
