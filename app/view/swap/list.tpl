@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="/public/css/main.css" />    
   </head>
   <body>
-    {% for item in swaps%}
-    
+    {% for key, value in data%}
+    <p>{{ key +'|'+ value}}</p>
     {% endfor %}
   </body>
 </html>

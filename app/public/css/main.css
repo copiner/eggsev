@@ -9,3 +9,7 @@ tr, th, td{
     text-align: center;
     border:1px solid #ccc;
 }
+
+tr:hover{
+    background-color:#ccc;
+}

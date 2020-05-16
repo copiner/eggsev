@@ -10,9 +10,9 @@ class SwapController extends Controller {
 
   async carry(){
       const { ctx, service } = this;
-      const res = await service.swap.carry();
-      //TODO;
-      await ctx.render('swap/swap.tpl', { url: '/exam/create' });      
+      const result = await service.swap.index.carry();
+
+      await ctx.render('swap/list.tpl', { data: result });      
   }
 
   async create() {
@@ -20,7 +20,7 @@ class SwapController extends Controller {
 
     const payload = ctx.request.body || {}
 
-    const res = await service.swap.create(payload)
+    const res = await service.swap.index.create(payload)
 
     ctx.body = "swap created";
   }
