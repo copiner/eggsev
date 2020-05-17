@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "egg-bin test",
+    "start":"egg-scripts start --daemon",
+    "stop":"egg-scripts stop",
     "dev": "egg-bin dev",
     "cov": "egg-bin cov"
   },

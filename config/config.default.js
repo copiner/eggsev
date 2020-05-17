@@ -34,3 +34,10 @@ exports.view = {
 exports.news = {
   serverUrl: 'https://httpbin.org/get',
 };
+
+exports.cluster = {
+    listen:{
+        port:7001,
+        hostname:'127.0.0.1'
+    }
+}
