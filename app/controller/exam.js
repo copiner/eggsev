@@ -19,7 +19,8 @@ class ExamController extends Controller {
       
       const ctx = this.ctx;
       const exams = await ctx.service.exam.findall();//arr
-      console.log(exams);
+      
+      
       await ctx.render('exam/list.tpl', { exams: exams });
       
   }

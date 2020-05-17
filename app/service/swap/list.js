@@ -13,22 +13,31 @@ class ListService extends Service {
 
       let t6 = 0, t7 = 0,t8=0,t9=0;
       for(let i=0; i<tutor.length;i++){
-          if(tutor[i].status && tutor[i].grade == '6'){
-              t6 += tutor[i].limit;
-          }
-          if(tutor[i].status && tutor[i].grade == '7'){
-              t7 += tutor[i].limit;
-          }
 
-          if(tutor[i].status && tutor[i].grade == '8'){
-              t8 += tutor[i].limit;
-          }
+          if(tutor[i].status){
 
-          if(tutor[i].status && tutor[i].grade == '9'){
-              t9 += tutor[i].limit;
-          }
+              tutor[i].count = 0;              
 
-          tutor[i].count = 0;
+              switch(parseInt(tutor[i].grade)){
+
+              case 6:
+                  t6 += tutor[i].limit;
+                  break;
+              case 7:
+                  t7 += tutor[i].limit;
+                  break;
+              case 8:
+                  t8 += tutor[i].limit;
+                  break;
+              case 9:
+                  t9 += tutor[i].limit;
+                  break;
+              default:
+                  console.log("unexcepted tutor grade");
+
+              }
+
+          }
 
       }
 
@@ -37,21 +46,49 @@ class ListService extends Service {
       console.log("tutor in grade 8 total times are : ", t8);
       console.log("tutor in grade 9 total times are : ", t9);
 
-      //TODO???
-      console.log("all exams are : ", session.length);
-
-      if(t6+t7+t8+t9 != session.length){
-          console.log("not equal...")
-          return [];
-      }
+      
+      let s6 = 0, s7 = 0, s8 = 0, s9 = 0;
       
       for (let i=0; i< session.length; i++){
           if(session[i].status){
               session[i].valid = true;
+              switch(parseInt(session[i].grade)){
+
+              case 6:
+                  s6++;
+                  break;
+              case 7:
+                  s7++;
+                  break;
+              case 8:
+                  s8++;
+                  break;
+              case 9:
+                  s9++;
+                  break;
+              default:
+                  console.log("unexcepted session grade");
+                  
+              }
           }
       }
 
+      console.log("session in grade 6 total times are : ", s6);
+      console.log("session in grade 7 total times are : ", s7);
+      console.log("session in grade 8 total times are : ", s8);
+      console.log("session in grade 9 total times are : ", s9);
+      
+
+
+      if(t6+t7+t8+t9 != s6+s7+s8+s9){
+          console.log("not equal...")
+          return [];
+      }
+      
+      console.log('session :', session.length);
+
       let exam = await this.first(tutor,session);
+      console.log("first :", exam.length);
 
       exam = await this.second(tutor, session, exam);          
 
@@ -72,6 +109,7 @@ class ListService extends Service {
                   && session[j].valid
                   && tutor[i].grade != session[j].grade
               ){
+
                   if(
                       tutor[i].supOut.indexOf(session[j].course) == '-1'
                    && tutor[i].subOut.indexOf(session[j].name+session[j].course) == '-1'
@@ -105,6 +143,8 @@ class ListService extends Service {
           }
       }
 
+      console.log(untutor);
+      console.log(unsession);
 
       let k = 0, flag = false;
 
@@ -117,24 +157,24 @@ class ListService extends Service {
               let ti = cp[1],si=cp[3];
 
               if(
-                  tutor[i].count < tutor[i].limit
-                  && session[j].valid
-                  && tutor[ti].grade != session[j].grade
-                  && tutor[i].grade != session[si].grade
+                  untutor[i].count < untutor[i].limit
+                  && unsession[j].valid
+                  && tutor[ti].grade != unsession[j].grade
+                  && untutor[i].grade != session[si].grade
               ){
                   if(
-                      tutor[ti].supOut.indexOf(session[j].course) == '-1'
-                      && tutor[ti].subOut.indexOf(session[j].name+session[j].course) == '-1'
-                      && tutor[i].supOut.index(session[si].course) == '-1'
-                      && tutor[i].subOut.index(session[si].name+session[si].course)=='-1'
+                      tutor[ti].supOut.indexOf(unsession[j].course) == '-1'
+                      && tutor[ti].subOut.indexOf(unsession[j].name+unsession[j].course) == '-1'
+                      && untutor[i].supOut.indexOf(session[si].course) == '-1'
+                      && untutor[i].subOut.indexOf(session[si].name+session[si].course)=='-1'
                   ){
-                      tutor[i].count +=1;
+                      untutor[i].count +=1;
                       exam.splice(k,1);
 
                       exam.push(untutor[i].no+'|'+untutor[i].idx+"|"+session[si].no+'|'+si);
-                      exam.push(tutor[ti].no+'|'+ti+"|"+unsession[j]+"|"+unsession[j].idx);
+                      exam.push(tutor[ti].no+'|'+ti+"|"+unsession[j].no+"|"+unsession[j].idx);
 
-                      session[j].valid = false;
+                      unsession[j].valid = false;
 
                       temp = true;
 
@@ -167,13 +207,13 @@ class ListService extends Service {
 
   async sorted(tutor, exam){
 
-      console.log(exam.length);
+
       let temp = {};
 
       for(let i=0; i<tutor.length;i++){
           temp[tutor[i].no] = [];
       }
-      console.log(temp)
+
       for(let i=0;i<exam.length;i++){
 
           for(let t in temp){

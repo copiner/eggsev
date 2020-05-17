@@ -15,6 +15,12 @@ class IndexService extends Service {
       const exams = await this.findExams();
 
 //      console.log(ctx.helper.shuffle);
+      if(users.length == '0'|| !users){
+          return [];
+      }
+      if(exams.length == '0'|| !exams){
+          return [];
+      }
       
       const one = await service.swap.list.capture(users, exams);
 

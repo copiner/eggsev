@@ -3,7 +3,7 @@ module.exports = app => {
   const ExamSchema = new mongoose.Schema({
     no: { type: String, required: true },
     name: { type: String, required: true },
-    grade: { type: String, required: true },
+    grade: { type: Number, required: true },
     course: { type: String, required: true },
     status:{ type: Boolean, required: true },
     createdAt: { type: Date, default: Date.now }
